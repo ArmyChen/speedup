@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title></title>
+<link href="res/css/admin_style.css?v20141223" rel="stylesheet" />
+<script>var GV={JS_ROOT:"res/js/dev/",JS_VERSION:"20141223",TOKEN:"bd588c67ec38e833",REGION_CONFIG:{},SCHOOL_CONFIG:{},URL:{LOGIN:"",IMAGE_RES:"res/images",REGION:"index.php?m=misc&c=webData&a=area",SCHOOL:"index.php?m=misc&c=webData&a=school"}};</script>
+<script src="res/js/dev/wind.js?v20141223"></script>
+<script src="res/js/dev/jquery.js?v20141223"></script>
+</head>
+<body>
+<div class="wrap J_check_wrap">
+	<div class="nav">
+		<ul class="cc">
+			<li class="current"><a href="?do=order">订单管理</a></li>
+		</ul>
+	</div>
+	<div class="h_a">搜索</div>
+	<div class="search_type cc mb10">
+		<form method="post" action="?do=order">
+		    <input type="hidden" name="m" value="search">
+			<label>账号：</label><input type="text" class="input length_3 mr10" name="user" value="<!--{$user}-->">
+			<label>订单号：</label><input type="text" class="input length_4 mr10" name="number" value="<!--{$number}-->">
+			<span class="mr5"></span>
+			<button class="btn length_1">搜索</button>
+			<span class="mr5"></span>
+			<button class="btn btn_submit length_1" type="button" onclick="javascript:window.location.href='?do=order'">重置</button>
+		</form>
+	</div>
+	<div class="h_a">功能说明</div>
+	<div class="prompt_text">
+		<ol>
+			<li>撤销订单将清除该订单用户所增加流量,以及使用时间。</li>
+		</ol>
+	</div>
+	<!--{if $RetList[0]}-->
+	<form class="J_ajaxForm" action="#" method="post">
+	<div class="table_list">
+		<table width="100%">
+			<thead>
+				<tr>
+				    <td width="80"><label><input type="checkbox" name="checkAll" class="J_check_all" data-direction="y" data-checklist="J_check_y">全选</label></td>
+					<td width="150">账号</td>
+					<td width="180">订单号</td>
+					<td width="75">单价</td>
+					<td width="140">创建时间</td>
+					<td width="80">类别</td>
+					<td width="120">时长/流量</td>
+					<td width="130">支付卡号</td>
+					<td width="65">状态</td>
+				</tr>
+			</thead>
+			<!--{section name=loop loop=$RetList[0]}-->
+			<tr>
+			    <td><input class="J_check" data-xid="J_check_x" data-yid="J_check_y" type="checkbox" id="aid" name="aid[]" value="<!--{$RetList[0][loop]->uid}-->"></td>
+				<td><!--{$RetList[0][loop]->user}--></td>
+				<td><!--{$RetList[0][loop]->number}--></td>
+				<td><!--{$RetList[0][loop]->price}--></td>
+				<td><!--{$RetList[0][loop]->addTime}--></td>
+				<td><!--{if $RetList[0][loop]->acct eq 1}-->常规<!--{else}--><span class="green">流量</span><!--{/if}--></td>
+				<td><!--{orderType uid=$RetList[0][loop]->uid}--></td>
+				<td><!--{$RetList[0][loop]->card}--></td>
+				<td><!--{if $RetList[0][loop]->start eq 1}-->
+					已开通<!--{elseif $RetList[0][loop]->start eq 2}-->
+					<span class="blue">已撤销</span><!--{else}-->
+					<span class="s6">未开通</span><!--{/if}-->
+				</td>
+			</tr><!--{/section}-->
+			<tr>
+				<td></td>
+				<td></td>
+				<td>本页合计</td>
+				<td><span class="red"><!--{$keyword}--></span></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<!--{if $RetList[1]}-->
+			<tr>
+				<td></td>
+				<td></td>
+				<td>全部合计</td>
+				<td><span class="red"><!--{$checkId}--></span></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr><!--{/if}-->
+		</table>
+		<!--{$RetList[1]}-->
+    </div>
+	</form>
+    <!--{if $RetList[0]}-->
+	<div class="btn_wrap">
+		<div class="btn_wrap_pd">
+			<a class="btn btn_submit" id="J_order_cx_all" href="#">撤销订单</a>
+			<a class="btn" id="J_order_del_all" href="#">删除订单</a>
+		</div>
+    </div><!--{/if}-->
+    <!--{else}-->
+	<div class="not_content_mini"><i></i>啊哦，没有符合条件的内容！</div><!--{/if}-->
+</div>
+<script src="res/js/dev/pages/admin/common/common.js"></script>
+<script type="text/javascript">
+Wind.use('dialog',function() {
+	$('#J_order_cx_all').on('click', function(e) {
+		e.preventDefault();
+		if(!$('input.J_check:checked').length) {
+			Wind.dialog.alert('请至少选定一个订单! ');
+			return;
+		}
+		Wind.dialog({
+			message	: '该操作不可以恢复, 确定要撤销选定的订单吗? ',
+			type	: 'confirm',
+			onOk	: function() {
+				$('form.J_ajaxForm').ajaxSubmit({
+					dataType : 'json',
+					url		 : '?do=order&op=cmdcheXiao',
+					success	 : function(data, statusText, xhr, $form) {
+						Wind.dialog.alert('成功撤销'+data.state+'个订单.', function() {
+							var location = window.location;
+							location.href = location.pathname + location.search;
+						});
+					}
+				});
+			}
+		});
+	});
+	$('#J_order_del_all').on('click', function(e) {
+		e.preventDefault();
+		if(!$('input.J_check:checked').length) {
+			Wind.dialog.alert('请至少选定一个订单! ');
+			return;
+		}
+		Wind.dialog({
+			message	: '该操作不可以恢复, 确定要删除选定的订单吗? ',
+			type	: 'confirm',
+			onOk	: function() {
+				$('form.J_ajaxForm').ajaxSubmit({
+					dataType : 'json',
+					url		 : '?do=order&op=cmdDel',
+					success	 : function(data, statusText, xhr, $form) {
+						if(data.state == 'success') {
+							var location = window.location;
+							location.href = location.pathname + location.search;
+						}else{
+							Wind.dialog.alert(data.message);
+						}
+					}
+				});
+			}
+		});
+	});
+});
+</script>
+</body>
+</html>

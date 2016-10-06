@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title></title>
+<link href="res/css/admin_style.css?v20141223" rel="stylesheet" />
+<script>var GV={JS_ROOT:"res/js/dev/",JS_VERSION:"20141223",TOKEN:"bd588c67ec38e833",REGION_CONFIG:{},SCHOOL_CONFIG:{},URL:{LOGIN:"",IMAGE_RES:"res/images",REGION:"index.php?m=misc&c=webData&a=area",SCHOOL:"index.php?m=misc&c=webData&a=school"}};</script>
+<script src="res/js/dev/wind.js?v20141223"></script>
+<script src="res/js/dev/jquery.js?v20141223"></script>
+</head>
+<body>
+<div class="wrap">
+<div class="nav">
+	<ul class="cc">
+		<li class="current"><a href="?do=cardType">套餐管理</a></li>
+	</ul>
+</div>
+<form method="post" class="J_ajaxForm" action="#">
+<div class="h_a">基本信息</div>
+<div class="table_full">
+	<table width="100%">
+		<col class="th" />
+		<col/>
+		<tr>
+			<th>套餐名称</th>
+			<td><input name="name" type="text" class="input input_hd length_5" value="<!--{$checkId->name}-->"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<th>计费类型</th>
+			<td>
+				<select name='acct' id="acct" class="length_5" style="height: 76px;" multiple="multiple" onchange="acctBox()">
+					<option value='1' <!--{if !$checkId->acct or $checkId->acct eq 1}-->selected<!--{/if}-->>常规(时间计费)</option>
+					<option value='2' <!--{if $checkId->acct eq 2}-->selected<!--{/if}-->>流量(流量计费)</option>
+				</select>
+			</td>
+			<td></td>
+		</tr>
+		<tr id="showhour" style="display:none;">
+			<th>时长</th>
+			<td>
+				<input name="hour" type="text" class="input input_hd length_2" value="<!--{$checkId->hour}-->">
+			</td>
+			<td><span class="red">(时长为小时,比如720为一个月)</span></td>
+		</tr>
+		<tr id="showflow" style="display:none;" >
+			<th>流量</th>
+			<td>
+				<input name="flow" type="text" class="input input_hd length_2" value="<!--{$format_flow}-->">
+			</td>
+			<td><span class="red">(流量单位为MB,比如1为MB)</span></td>
+		</tr>
+		<tr>
+			<th>单价</th>
+			<td><input name="price" type="text" class="input input_hd length_3" value="<!--{$checkId->price}-->"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<th>连接数</th>
+			<td><input name="number" type="text" class="input input_hd length_1" value="<!--{$checkId->number}-->"></td>
+			<td><span class="red">(大于0则用户购买此套餐的时候,强制修改用户连接数)</span></td>
+		</tr>
+		<tr>
+			<th>位置</th>
+			<td><input name="pos" type="text" class="input input_hd length_1" value="<!--{$checkId->pos}-->"></td>
+			<td></td>
+		</tr>
+	</table>
+</div>
+<div class="btn_wrap_pd">
+    <input type="hidden" name="op" value="cmdsave"/>
+    <input type="hidden" name="uid" value="<!--{$checkId->uid}-->"/>
+	<button class="btn btn_submit mr10 J_ajax_submit_btn" type="submit">提交</button>
+	<button class="btn length_1" type="button" onclick="javascript:window.location.href='?do=cardType'">返回</button>
+</div>
+</form>
+</div>
+<script src="res/js/dev/pages/admin/common/common.js?v20141223"></script>
+<script type="text/javascript">$(document).ready(function(){if($('#acct option:selected').get(0).value==1){document.getElementById('showhour').style.display="";}else{document.getElementById('showflow').style.display="";};});function acctBox(){if($('#acct option:selected').get(0).value==2){document.getElementById('showhour').style.display="none";document.getElementById('showflow').style.display="";}else{document.getElementById('showhour').style.display="";document.getElementById('showflow').style.display="none";};}</script>
+</body>
+</html>

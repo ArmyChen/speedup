@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title></title>
+<link href="res/css/admin_style.css?v20141223" rel="stylesheet" />
+<script>var GV={JS_ROOT:"res/js/dev/",JS_VERSION:"20141223",TOKEN:"bd588c67ec38e833",REGION_CONFIG:{},SCHOOL_CONFIG:{},URL:{LOGIN:"",IMAGE_RES:"res/images",REGION:"index.php?m=misc&c=webData&a=area",SCHOOL:"index.php?m=misc&c=webData&a=school"}};</script>
+<script src="res/js/dev/wind.js?v20141223"></script>
+<script src="res/js/dev/jquery.js?v20141223"></script>
+</head>
+<body>
+<div class="wrap J_check_wrap">
+	<div class="nav">
+		<ul class="cc">
+			<li class="current"><a href="?do=log">系统日志</a></li>
+		</ul>
+	</div>
+	<div class="h_a">功能说明</div>
+	<div class="prompt_text">
+		<ol>
+			<li>为了保证后台的安全性，系统只允许站点创始人删除日志</li>
+			<li>只允许删除3个月前的日志</li>
+		</ol>
+	</div>
+	<div class="h_a">搜索</div>
+	<div class="search_type cc mb10">
+		<form method="post" action="?do=log">
+		    <input type="hidden" name="m" value="search">
+			<label>操作者：</label><input type="text" class="input length_3 mr10" name="user" value="<!--{$user}-->">
+			<label>操作日志：</label><input type="text" class="input length_3 mr10" name="open" value="<!--{$open}-->">
+			<button class="btn length_1">搜索</button>
+			<span class="mr5"></span>
+			<button class="btn btn_submit length_1" type="button" onclick="javascript:window.location.href='?do=log'">重置</button>
+		</form>
+	</div>
+	<!--{if $RetList[0]}-->
+	<div class="table_list">
+		<table width="100%">
+			<colgroup>
+				<col width="60">
+				<col width="280">
+				<col width="245">
+			</colgroup>
+			<thead>
+				<tr>
+					<td width="110">操作者</td>
+					<td>操作IP</td>
+					<td>操作日志</td>
+					<td>操作系统</td>
+					<td>浏览器</td>
+					<td>操作时间</td>
+				</tr>
+			</thead>
+			<!--{section name=loop loop=$RetList[0]}-->
+			<tr>
+				<td><!--{getName uid=$RetList[0][loop]->user}--></td>
+				<td><!--{getIp ip=$RetList[0][loop]->ip}--></td>
+				<td><!--{$RetList[0][loop]->open}--></td>
+				<td><!--{$RetList[0][loop]->getPlatform}--></td>
+				<td><!--{$RetList[0][loop]->getBrowser}--></td>
+				<td><!--{$RetList[0][loop]->addtime}--></td>
+			</tr><!--{/section}-->
+		</table>
+		<!--{$RetList[1]}-->
+    </div>
+	<div class="btn_wrap">
+		<div class="btn_wrap_pd">
+			<a class="btn" id="J_clear" href="?do=log&op=cmdDel">确定清除3个月前日志</a>
+		</div>
+    </div>
+    <!--{else}--><div class="not_content_mini"><i></i>啊哦，没有符合条件的内容！</div><!--{/if}-->
+</div>
+<script src="res/js/dev/pages/admin/common/common.js"></script>
+<script>
+Wind.use('ajaxForm', 'dialog', function(){
+	var clear = $('#J_clear');
+	clear.on('click', function(e){
+		e.preventDefault();
+		Wind.dialog({
+			type : 'confirm',
+			isMask	: false,
+			message : '确认删除？',
+			follow	: clear,
+			onOk	: function() {
+				clear.parent().find('span').remove();
+				$.post(clear.attr('href'), {
+					step : '2'
+				}, function(data){
+					if(data.state == 'success') {
+						$( '<span class="tips_success">' + data.message + '</span>' ).appendTo(clear.parent()).fadeIn('slow').delay( 1000 ).fadeOut(function(){
+							reloadPage(window);
+						});
+					}else if(data.state == 'fail'){
+						$( '<span class="tips_error">' + data.message + '</span>' ).appendTo(clear.parent()).fadeIn( 'fast' );
+					}
+				}, 'json');
+			}
+		});
+	});
+});
+</script>
+</body>
+</html>

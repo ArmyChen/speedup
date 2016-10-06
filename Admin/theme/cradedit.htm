@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title></title>
+<link href="res/css/admin_style.css?v20141223" rel="stylesheet" />
+<script>var GV={JS_ROOT:"res/js/dev/",JS_VERSION:"20141223",TOKEN:"bd588c67ec38e833",REGION_CONFIG:{},SCHOOL_CONFIG:{},URL:{LOGIN:"",IMAGE_RES:"res/images",REGION:"index.php?m=misc&c=webData&a=area",SCHOOL:"index.php?m=misc&c=webData&a=school"}};</script>
+<script src="res/js/dev/wind.js?v20141223"></script>
+<script src="res/js/dev/jquery.js?v20141223"></script>
+</head>
+<body>
+<div class="wrap">
+<div class="nav">
+	<ul class="cc">
+		<li><a href="?do=crad">充值卡管理</a></li>
+		<li class="current"><a href="?do=crad&op=cmdEdit">批量制卡</a></li>
+	</ul>
+</div>
+<form method="post" class="J_ajaxForm" action="#">
+<div class="h_a">基本信息</div>
+<div class="table_full">
+	<table width="100%" class="J_check_wrap">
+		<col class="th" />
+		<col/>
+		<tr>
+			<th>制卡数量</th>
+			<td><input name="sum" type="text" class="input input_hd length_5" value="10"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<th>卡号类别</th>
+			<td>
+			    <select id="acct" name="acct" style="width: 300px; height: 68px;" multiple="multiple" onchange="acctBox()">
+					<option value='1' selected>常规(时间计费)</option>
+					<option value='2'>流量(流量计费)</option>
+				</select>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<th>单价</th>
+			<td>
+				<input name="price" type="text" class="input input_hd length_5" value="20">
+			</td>
+			<td><span class="red">(该单价用于统计销售量统计)</span></td>
+		</tr>
+		<tr id="showhour" style="display:none;">
+			<th>时长(小时)</th>
+			<td>
+				<input name="hour" type="text" class="input input_hd length_5" value="720">
+			</td>
+			<td><span class="red">(时长为小时,比如720为一个月)</span></td>
+		</tr>
+		<tr id="showflow" style="display:none;" >
+			<th>流量(MB)</th>
+			<td>
+				<input name="flow" type="text" class="input input_hd length_5" value="1024">
+			</td>
+			<td><span class="red">(流量单位为MB,比如1为MB)</span></td>
+		</tr>
+		<tr>
+			<th>卡号前缀</th>
+			<td><input name="Flag" id="Flag" type="text" class="input input_hd length_5" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^a-zA-Z0-9]/g,''))" onkeyup="value=this.value.replace(/[^a-zA-Z0-9]/g,'').toUpperCase();cardView();"></td>
+			<td><span class="red" id="View">最长8位英文字母或者数字。</span></td>
+		</tr>
+		<tr>
+			<th>连接数</th>
+			<td><input name="number" type="text" class="input input_hd length_2" value="0"></td>
+			<td><span class="red">(大于0则用户购买此套餐的时候,强制修改用户连接数)</span></td>
+		</tr>
+		<tr>
+			<th>备注</th>
+			<td>
+				<textarea class="length_5" name="profile"></textarea>
+			</td>
+			<td></td>
+		</tr>
+	</table>
+</div>
+<div class="btn_wrap">
+	<div class="btn_wrap_pd">
+		<input type="hidden" name="op" value="cmdsave"/>
+		<button class="btn btn_submit mr10 J_ajax_submit_btn" type="submit">提交</button>
+		<button class="btn length_1" type="button" onclick="javascript:window.location.href='?do=crad'">返回</button>
+	</div>
+</div>
+</form>
+</div>
+<script src="res/js/dev/pages/admin/common/common.js?v20141223"></script>
+<script type="text/javascript">
+
+selBox(1);
+
+function acctBox() {
+    var m = $('#acct option:selected').get(0).value;
+	selBox(m);
+}
+
+function selBox(i) {
+	if(i == 1) {
+		document.getElementById('showhour').style.display="";
+		document.getElementById('showflow').style.display="none";
+	}else{
+		document.getElementById('showhour').style.display="none";
+		document.getElementById('showflow').style.display="";
+	}
+}
+
+function cardView()
+{
+	var Flag = document.getElementById("Flag");
+	var View = document.getElementById("View");
+	var cardid = Flag.value + "000000000000000000";
+	cardid = cardid.substring(0,16);
+	View.innerHTML ='卡号预览: ' + cardid;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>找回密码 - 4KVPN【官方网站】</title>
+<link href="img/main.css" rel="stylesheet" />
+<script src="img/indexBos.js"></script>
+</head>
+<body>
+<?php require 'html/index_header.htm'; ?>
+<div id="content">
+	<div style="float:left;width:200px;">
+		<form action="?op=Login" method="post" style="margin:0px;">
+			<input name="return_url"  type="hidden" id="return_url" value="?op=catbuy" />
+			<table width="200" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+				<table width="100%" border="0" cellpadding="0" cellspacing="0" style="display:block">
+				<tr>
+				<td height="35" nowrap="nowrap" class="f18">自助平台</td>
+				<td width="0" rowspan="4" nowrap="nowrap">&nbsp;</td>
+				</tr>
+				<tr>
+				<td height="45" align="left" nowrap="nowrap"  ><input name="mini_username"  class="log_inp3" id="mini_username" size="12" /></td>
+				</tr>
+				<tr>
+				<td height="45" align="left" nowrap="nowrap"  ><input name="mini_password" type="password" class="log_inp4" id="mini_password" value="" size="12" /></td>
+				</tr>
+				<tr>
+				<td height="50" align="center" nowrap="nowrap"  ><input name="submit" type="submit" class="dl_btn2" value="登录"/></td>
+				</tr>
+				<tr>
+				<td height="40" align="center" nowrap="nowrap"  ><a href="?op=reg">注册帐号</a> | <a href="?op=forget"  >找回密码</a></td>
+				</tr>
+				</table>
+				</td>
+			</tr>
+			</table>
+		</form>
+		<div class="cle"></div>
+	</div>
+	<div class="user_yc">
+		<div class="u_tit2">找回密码</div>
+		<div id="maincontent">
+			<form action="?op=dofindpwd" method="post">
+			<input name="return_url"  type="hidden" id="return_url" value="?op=forget" />
+			<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+			<tr>
+			<td style="padding:0 70px;"><br />
+			请输入您注册时的用户名：
+			<label>
+			<input type="text" id="username" name="username" class="inp_bk"/>
+			</label>
+			<br />
+			<br />
+			请输入您注册用的 Email：
+			<label>
+			<input id="mail" name="mail" type="text" class="inp_bk"/>
+			</label>
+			<br />
+			<br />
+			<br />  <div style=" width:400px; margin-left:2px;"><input type="submit" name="Button1" onClick="return sendForget();" value="确认提交" class="qr_btn" id="Button1" /></div>               
+			<br />
+			</td>
+			</tr>
+			</table>
+			</form>
+		</div> 
+	</div>
+</div>
+<div class="cle"></div>
+<script>
+function sendForget()
+{
+    if(document.getElementById('username').value.length<1)
+    {
+        alert('请输入您注册时的用户名');
+        document.getElementById('username').focus()
+        return false;
+    }
+    if(document.getElementById('mail').value.length<1)
+    {
+        alert('请输入您注册用的 Email ');
+        document.getElementById('mail').focus()
+        return false;
+    }
+    document.forms[0].submit();
+    return true;
+}
+</script>
+<?php require 'html/index_footer.htm'; ?>
+</body>
+</html>

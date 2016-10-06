@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title></title>
+<link href="res/css/admin_style.css?v20141223" rel="stylesheet" />
+<script>var GV={JS_ROOT:"res/js/dev/",JS_VERSION:"20141223",TOKEN:"bd588c67ec38e833",REGION_CONFIG:{},SCHOOL_CONFIG:{},URL:{LOGIN:"",IMAGE_RES:"res/images",REGION:"index.php?m=misc&c=webData&a=area",SCHOOL:"index.php?m=misc&c=webData&a=school"}};</script>
+<script src="res/js/dev/wind.js?v20141223"></script>
+<script src="res/js/dev/jquery.js?v20141223"></script>
+</head>
+<body>
+<div class="wrap">
+<div class="nav">
+	<ul class="cc">
+		<li class="current"><a href="?do=serverGroup">服务器分组管理</a></li>
+	</ul>
+</div>
+<form method="post" class="J_ajaxForm" action="#">
+<div class="h_a">基本信息</div>
+<div class="table_full">
+	<table width="100%">
+		<col class="th" />
+		<col/>
+		<tr>
+			<th>分组名称</th>
+			<td><input name="serverGroupName" type="text" class="input input_hd length_5" value="<!--{$checkId->serverGroupName}-->"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<th>IpDnsAddress</th>
+			<td><input name="IpDnsAddress" type="text" class="input input_hd length_5" value="<!--{$checkId->IpDnsAddress}-->"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<th>IpDns2Address</th>
+			<td><input name="IpDns2Address" type="text" class="input input_hd length_5" value="<!--{$checkId->IpDns2Address}-->"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<th>分组状态</th>
+			<td>
+				<ul class="switch_list cc">
+					<li><label><input name="start" value="1" type="radio" <!--{if !$checkId->start or $checkId->start eq 1}-->checked<!--{/if}-->><span>正常</span></label></li>
+					<li><label><input name="start" value="2" type="radio" <!--{if $checkId->start eq 2}-->checked<!--{/if}-->><span>暂停</span></label></li>
+				</ul>
+			</td>
+			<td><div class="fun_tips">分组状态,暂停之后客户端上将无法显示!</div></td>
+		</tr>
+	</table>
+</div>
+<div class="btn_wrap_pd">
+    <input type="hidden" name="op" value="cmdsave"/>
+    <input type="hidden" name="uid" value="<!--{$checkId->uid}-->"/>
+	<button class="btn btn_submit mr10 J_ajax_submit_btn" type="submit">提交</button>
+	<button class="btn length_1" type="button" onclick="javascript:window.location.href='?do=serverGroup'">返回</button>
+</div>
+</form>
+</div>
+<script src="res/js/dev/pages/admin/common/common.js?v20141223"></script>
+</body>
+</html>

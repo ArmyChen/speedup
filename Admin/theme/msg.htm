@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>信息提示</title>
+  	<style type="text/css">
+		*{margin:0px;padding:0px; font-size:12px; font-family: Microsoft YaHei, Tahoma, Arial, STXihei, sans-serif;}
+		body{background:#25557D;}
+		.wrapper{width:450px;height:260px;background:#FFF;position:absolute;top:40%;left:50%;margin-top:-100px;margin-left:-225px;}
+		.msg {width:100%;height:30px;line-height:30px;text-align:center;color:#25557D;margin-top:50px; font-size:14px ;font-weight:bold;}
+		.error{width:100%;height:40px; text-align:center;color:#25557D;margin-top:22px; }
+		.ret{width:100%;height:40px; text-align:center;color:#25557D;margin-top:2px; }
+  	</style>
+</head>
+<body>
+  	<div class="wrapper">
+		<p class="msg">信息提示</p>
+		<p class="error"><!--{$msg}--></p>
+		<p class="ret"><a href="login.php" >[返回登录]</a></p>
+  	</div>
+</body>
+</html>

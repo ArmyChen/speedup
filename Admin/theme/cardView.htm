@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title></title>
+<link href="res/css/admin_style.css?v20141223" rel="stylesheet" />
+</head>
+<body class="body_none founder_pop" style="width:720px;">
+	<div class="pop_cont pop_table" style="height:auto;">
+	    <div class="h_a"></div>
+	    <div class="table_list">
+			<table width="100%">
+				<tr>
+					<td><b>卡号</b></td>
+					<td><b>卡密</b></td>
+					<td><b>计费方式</b></td>
+					<td><b>时长</b></td>
+					<td><b>数量</b></td>
+					<td><b>充值账号</b></td>
+					<td><b>充值时间</b></td>
+					<td><b>IP</b></td>
+				</tr>
+				<tr>
+					<td><!--{$checkId->card}--></td>
+					<td><!--{$checkId->pass}--></td>
+					<td><!--{if $checkId->acct eq 1}-->常规计费<!--{else}--><span class="green">流量计费</span><!--{/if}--></td>
+					<td><!--{cardType uid=$checkId->uid}--></td>
+					<td><!--{$checkId->number}--></td>
+					<td><!--{$checkId->user}--></td>
+					<td><!--{$checkId->useTime}--></td>
+					<td><!--{$checkId->ip}--></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

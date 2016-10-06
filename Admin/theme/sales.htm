@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title></title>
+<link href="res/css/admin_style.css?v20141223" rel="stylesheet" />
+<script>var GV={JS_ROOT:"res/js/dev/",JS_VERSION:"20141223",TOKEN:"bd588c67ec38e833",REGION_CONFIG:{},SCHOOL_CONFIG:{},URL:{LOGIN:"",IMAGE_RES:"res/images",REGION:"index.php?m=misc&c=webData&a=area",SCHOOL:"index.php?m=misc&c=webData&a=school"}};</script>
+<script src="res/js/dev/wind.js?v20141223"></script>
+<script src="res/js/dev/jquery.js?v20141223"></script>
+<script src="res/js/dev/echarts-all.js"></script>
+<script src="res/js/dev/layer/layer.js?v20141223"></script>
+</head>
+<body>
+<div class="wrap J_check_wrap">
+	<div class="nav">
+		<ul class="cc">
+			<li class="current"><a href="?do=sales">销售量统计</a></li>
+		</ul>
+	</div>
+	<div class="h_a">搜索</div>
+	<form method="post" action="?do=sales">
+	<input type="hidden" name="m" value="search">
+	<div class="search_type cc mb10">
+		<label>时间：</label>
+		<select id="TimeId" name="valTime" class="length_3">
+				<option value='' selected>---</option>
+				<option value='day0' <!--{if $valTime eq 'day0'}-->selected<!--{/if}-->>今天</option>
+				<option value='day1' <!--{if $valTime eq 'day1'}-->selected<!--{/if}-->>前一天</option>
+				<option value='day2' <!--{if $valTime eq 'day2'}-->selected<!--{/if}-->>前二天</option>
+				<option value='day3' <!--{if $valTime eq 'day3'}-->selected<!--{/if}-->>前三天</option>
+				<option value='week0' <!--{if $valTime eq 'week0'}-->selected<!--{/if}-->>本周</option>
+				<option value='week1' <!--{if $valTime eq 'week1'}-->selected<!--{/if}-->>上一周</option>
+				<option value='month0' <!--{if $valTime eq 'month0'}-->selected<!--{/if}-->>本月</option>
+				<option value='month1' <!--{if $valTime eq 'month1'}-->selected<!--{/if}-->>上一个月</option>
+				<option value='month2' <!--{if $valTime eq 'month2'}-->selected<!--{/if}-->>上两个月</option>
+		</select>
+		<span class="mr5"></span>
+		<button class="btn length_1">搜索</button>
+		<span class="mr5"></span>
+		<button class="btn btn_submit length_1" type="button" onclick="javascript:window.location.href='?do=sales'">重置</button>
+	</div>
+	</form>
+	<div class="table_list" style="background:#FFF; border:1px solid #E5E3E3;">
+	    <div id="chartsId" style="height: 500px;"></div>
+	</div>
+</div>
+<script src="res/js/dev/pages/admin/common/common.js"></script>
+<script type="text/javascript">
+var a = document.getElementById("chartsId"), b = new Date(), InitChart = echarts.init(a),
+    c = [], d = document.getElementById('TimeId').value;
+
+showCharts('no', '正在玩命加载, 请稍后.... ');
+
+sendData();
+
+function sendData() {
+	$.ajax({
+		url:"?do=sales&op=getData",
+		async:false,
+		data:'time=' + d,
+		dataType: "json",
+		success:function(result) {
+			showCharts('ok', result);
+		}, error: function() {
+			showCharts('no', '链接到服务器异常,请刷新页面重试! ');
+		}
+	});
+}
+
+function showCharts(Ret, Msg) {
+	if(Ret == 'no') {
+		InitChart.showLoading({
+			text: Msg
+		});
+	    return;
+	}
+	var getDate = eval(Msg)
+	for(var i=0; i< getDate.length; i++)
+	{
+		c[i] = getDate[i].name;
+	}
+	option = {
+		title : {
+			text: '销售量统计',
+		    subtext: 'update:' + b.getFullYear()+"-"+(b.getMonth()+1)+"-"+b.getDate()+' '+b.getHours()+':'+b.getMinutes(),
+			x: 'center',
+			y: 30
+		},
+		tooltip : {
+			trigger: 'item',
+			formatter: "{b} : {c} 元 ({d}%)"
+		},
+		legend: {
+			orient : 'vertical',
+			x : 'left',
+			data: c
+		},
+		toolbox: {
+			show : true,
+			feature : {
+				mark : {show: true},
+				dataView : {show: true, readOnly: false},
+				magicType : {
+					show: true,
+					type: ['pie', 'funnel'],
+					option: {
+ 						funnel: {
+							x: '25%',
+							width: '50%',
+							funnelAlign: 'left',
+							max: 1548
+						}
+					}
+				},
+				restore : {show: true},
+				saveAsImage : {show: true}
+			}
+		},
+		calculable : true,
+		series : [
+			{
+				name:'销售量统计',
+				type:'pie',
+				radius : '55%',
+				center: ['50%', '52%'],
+				data: getDate
+			}
+		]
+	};
+	InitChart.hideLoading();
+	InitChart.setOption(option);
+}
+</script>
+</body>
+</html>

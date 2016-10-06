@@ -1,0 +1,58 @@
+<div id="footer">
+	<div class="kd_auto2">
+	<ul class="f_menu">
+		<li><a href="?op=Login" class="f1">自助平台</a></li>
+		<li><a href="?op=reg" class="f2">会员注册</a></li>
+		<li><a href="?op=help" class="f3">使用帮助</a></li>
+		<li><a href="?op=contact" class="f4">联系我们</a></li>
+		<li><a href="?op=swhz" class="f5">商务合作</a></li>
+		<li><a href="?op=gmtc" class="f6">套餐价格</a></li>
+		<li><a href="?op=forget" class="f7">找回密码</a></li>
+		<li><a href="?op=about" class="f8">关于我们</a></li>
+	</ul>
+	<div class="f_wb">
+		<img src="img/tc-footer-qr-a.png" /><p>
+		<img src="img/wb1.jpg" align="absmiddle" />
+		<a href="#">新浪微博</a></p>
+	</div>
+	<div class="f_wx">
+	<div align="center"><img src="img/tc-footer-qr-b.png" /></div>
+	<p><img src="img/wx1.jpg" align="absmiddle" /><a href="#">&nbsp;&nbsp;微信关注</a></p></div>
+	<p class="lx">北京4K网络有限公司&nbsp; 地址: 北京市长安街1号 &nbsp;&nbsp;
+	<a style="color:#fff; text-decoration:underline"href="http://www.miitbeian.gov.cn" target="blank">京ICP备: 888888888</a></p>
+	</div>
+</div>
+<div class="qq_kf">
+	<div class="slide_min"></div>
+    <div class="slide_box" style="display:none;">
+    	<h2><img src="img/slide_box.jpg" /></h2>
+        <p><a title="点击这里给我发消息" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1903076&amp;site=www.gaosmg.com&amp;menu=yes" target="_blank"><img src="http://wpa.qq.com/pa?p=2:1903076:41"></a></p>
+        <p>
+        	<img src="img/tc-footer-qr-a.png" class="weixin" /><br />
+        	<b>客户服务热线</b><br />
+        	400-8888-9999
+        </p>
+        <span><a href="#">给我们留言</a></span>
+    </div>
+</div>
+<script src="img/jquery.min.js"></script>
+<script>
+$(function(){
+	var thisBox = $('.qq_kf');
+	var defaultTop = thisBox.offset().top;
+	var slide_min = $('.qq_kf .slide_min');
+	var slide_box = $('.qq_kf .slide_box');
+	var closed = $('.qq_kf .slide_box h2 img');
+	slide_min.on('click',function(){$(this).hide();	slide_box.show();});
+	closed.on('click',function(){slide_box.hide().hide();slide_min.show();});
+	$(window).on('scroll',function(){scro();});
+	$(window).onload = scro();
+	function scro(){
+		var offsetTop = defaultTop + $(window).scrollTop()+'px';
+		thisBox.animate({top:offsetTop},
+		{	duration: 600,
+	     	queue: false
+	     });
+	}
+});
+</script>

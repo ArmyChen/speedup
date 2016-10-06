@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title></title>
+<link href="res/css/admin_style.css?v20141223" rel="stylesheet" />
+<script>var GV={JS_ROOT:"res/js/dev/",JS_VERSION:"20141223",TOKEN:"bd588c67ec38e833",REGION_CONFIG:{},SCHOOL_CONFIG:{},URL:{LOGIN:"",IMAGE_RES:"res/images",REGION:"index.php?m=misc&c=webData&a=area",SCHOOL:"index.php?m=misc&c=webData&a=school"}};</script>
+<script src="res/js/dev/wind.js?v20141223"></script>
+<script src="res/js/dev/jquery.js?v20141223"></script>
+<style>
+.fieldset {border:1px solid #72A8CF; padding:10px; margin-left: 2px; width:760px; margin-bottom:10px;}
+.fieldset .label{display:inline-block; width:245px; margin-bottom:6px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="nav">
+	<ul class="cc">
+		<li class="current"><a href="?do=group">用户组管理</a></li>
+	</ul>
+</div>
+<form method="post" class="J_ajaxForm" action="#">
+<div class="h_a">基本信息</div>
+<div class="table_full">
+	<table width="100%" class="J_check_wrap">
+		<col class="th" />
+		<col/>
+		<tr>
+			<th>用户组名称</th>
+			<td><input name="name" type="text" class="input input_hd length_5" value="<!--{$checkId->name}-->"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<th>计费类型</th>
+			<td>
+				<select name='acct' style="width: 300px; height: 68px;" multiple="multiple" onchange="acctBox()">
+					<option value='1' <!--{if !$checkId->acct or $checkId->acct eq 1}-->selected<!--{/if}-->>常规(时间计费)</option>
+					<option value='2' <!--{if $checkId->acct eq 2}-->selected<!--{/if}-->>流量(流量计费)</option>
+				</select>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<th>上行宽带(KB/s)</th>
+			<td><input name="uplink" type="text" class="input input_hd length_5" value="<!--{$format_uplink}-->"></td>
+			<td><span class="red">(该参数只对ROS有效)</span></td>
+		</tr>
+		<tr>
+			<th>下行宽带(KB/s)</th>
+			<td><input name="downlink" type="text" class="input input_hd length_5" value="<!--{$format_downlink}-->"></td>
+			<td><span class="red">(该参数只对ROS有效)</span></td>
+		</tr>
+		<tr>
+			<th>日流量限制(MB)</th>
+			<td><input name="dflow" type="text" class="input input_hd length_5" value="<!--{$format_dflow}-->"></td>
+			<td><span class="red">(单位为MB,比如1为1MB)</span></td>
+		</tr>
+		<tr>
+			<th>月流量限制(MB)</th>
+			<td><input name="mflow" type="text" class="input input_hd length_5" value="<!--{$format_mflow}-->"></td>
+			<td><span class="red">(单位为MB,比如1为1MB)</span></td>
+		</tr>
+		<tr>
+		    <th>允许登录的服务器</th>
+			<td>
+				<label>
+				    <input type="checkbox" <!--{if $dataList|@count eq $keyword and $keyword}-->checked="checked"<!--{/if}--> onclick="checkbox(this, 'serverid[]')" />
+					<span>&nbsp;选中全部</span>
+				</label>
+				<div style="height: 12px;"></div>
+				<!--{section name=loop loop=$groupList}-->
+					<!--{if $serverList[$groupList[loop]->uid]|@count}-->
+					<fieldset class="fieldset">
+						<legend><!--{$groupList[loop]->serverGroupName}--></legend>
+						<div id="checkbox_div_servergroupids">
+							<!--{section name=list loop=$serverList[$groupList[loop]->uid]}-->
+							<label class="label">
+								<input type="checkbox" name="serverid[]" <!--{if $serverList[$groupList[loop]->uid][list]->uid|in_array:$dataList}--> checked="checked" <!--{/if}--> value="<!--{$serverList[$groupList[loop]->uid][list]->uid}-->"/>
+								<span>&nbsp; <!--{$serverList[$groupList[loop]->uid][list]->serverName}--></span>
+							</label>
+							<!--{/section}-->
+						</div>
+					</fieldset>
+					<!--{/if}-->
+				<!--{/section}-->
+			</td>
+		</tr>
+	</table>
+</div>
+<div class="btn_wrap">
+	<div class="btn_wrap_pd">
+		<input type="hidden" name="op" value="cmdsave"/>
+		<input type="hidden" name="uid" value="<!--{$checkId->uid}-->"/>
+		<button class="btn btn_submit mr10 J_ajax_submit_btn" type="submit">提交</button>
+		<button class="btn length_1" type="button" onclick="javascript:window.location.href='?do=group'">返回</button>
+	</div>
+</div>
+</form>
+</div>
+<script src="res/js/dev/pages/admin/common/common.js?v20141223"></script>
+<script>function checkbox(a,m){var i,n=document.getElementsByName(m);for(i=0;i<n.length;i++){n[i].checked=a.checked;}}</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<div id="user_menu">
+	<h4 class="u_tit"><img src="img/u1.png" /> 基本信息</h4>
+	<ul class="u_info">
+		<li>我的账号: <em><?php echo $_SESSION['authuser_name']; ?></em></li>
+		<?php 	
+			$sqlstr = "SELECT `group`, `expires`, `number`, `userFlow` FROM web_user WHERE uid = '{$_SESSION['authuser_uid']}'";
+			$checkinfo = $db->get_row($sqlstr);
+			$sqlstr = "SELECT `acct` FROM web_group WHERE `uid` = '{$checkinfo->group}'";
+			$checkAcct = $db->get_var($sqlstr);
+		?>
+		<li><span style="padding-left:14px;"></span>连接数:  <em><?php echo $checkinfo->number; ?>台</em></li>
+		<?php
+			if($checkAcct == 1)  {
+			   echo '<li>到期时间: <em>'.$checkinfo->expires.' </em></li>';
+			   } else {  echo '<li>剩余流量: <em>'.formatSizeUnits($checkinfo->userFlow).' </em></li>'; } ?>
+	</ul>
+	<h4 class="u_tit"><img src="img/u2.png" /> 账号管理</h4>
+	<ul class="u_list">
+		<li><a href="?op=catbuy">续费开通</a></li>
+		<li><a href="?op=pass">修改密码</a></li>
+		<li><a href="?op=info">个人资料</a></li>
+	</ul>
+	<h4 class="u_tit"><img src="img/u5.png" /> 帮助中心</h4>
+	<ul class="u_list">
+		<li><a href="?op=help">设置帮助</a></li>
+		<li><a href="?op=faq">常见故障</a></li>
+		<li><a href="?op=server">线路查询</a></li>
+	</ul>
+	<h4 class="u_tit"><img src="img/u4.png" /> 记录查询</h4>
+	<ul class="u_list">
+		<li><a href="?op=charge">充值记录</a></li>
+		<li><a href="?op=session">当前在线</a></li>
+	</ul>
+	<h4 class="u_tit"><img src="img/u6.png" /> 系统信息</h4>
+	<ul class="u_list">
+		<li><a href="?op=Logout">退出</a></li>
+	</ul>
+</div>

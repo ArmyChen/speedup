@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title></title>
+<link href="res/css/admin_style.css?v20141223" rel="stylesheet" />
+<script>var GV={JS_ROOT:"res/js/dev/",JS_VERSION:"20141223",TOKEN:"bd588c67ec38e833",REGION_CONFIG:{},SCHOOL_CONFIG:{},URL:{LOGIN:"",IMAGE_RES:"res/images",REGION:"index.php?m=misc&c=webData&a=area",SCHOOL:"index.php?m=misc&c=webData&a=school"}};</script>
+<script src="res/js/dev/wind.js?v20141223"></script>
+<script src="res/js/dev/jquery.js?v20141223"></script>
+</head>
+<body>
+<div class="wrap J_check_wrap">
+	<div class="nav">
+		<ul class="cc">
+			<li class="current"><a href="?do=online">当前连接察看</a></li>
+		</ul>
+	</div>
+	<div class="h_a">搜索</div>
+	<div class="search_type cc mb10">
+		<form method="post" action="?do=online">
+		    <input type="hidden" name="m" value="search">
+			<label>账号：</label><input type="text" class="input length_3 mr10" name="UserName" value="<!--{$UserName}-->">
+			<label>服务器：</label><input type="text" class="input length_4 mr10" name="serverIP" value="<!--{$serverIP}-->">
+			<span class="mr5"></span>
+			<button class="btn length_1">搜索</button>
+			<span class="mr5"></span>
+			<button class="btn btn_submit length_1" type="button" onclick="javascript:window.location.href='?do=online'">重置</button>
+		</form>
+	</div>
+	<!--{if $RetList[0]}-->
+	<form class="J_ajaxForm" action="#" method="post">
+	<div class="table_list">
+		<table width="100%">
+			<thead>
+				<tr>
+				    <td width="80"><label><input type="checkbox" name="checkAll" class="J_check_all" data-direction="y" data-checklist="J_check_y">全选</label></td>
+					<td width="120">账号</td>
+					<td>主机IP</td>
+					<td>内网IP</td>
+					<td>公网IP</td>
+					<td>协议</td>
+					<td>上行流量</td>
+					<td>下行流量</td>
+					<td>登录时间</td>
+				</tr>
+			</thead>
+			<!--{section name=loop loop=$RetList[0]}-->
+			<tr>
+			    <td><input class="J_check" data-xid="J_check_x" data-yid="J_check_y" type="checkbox" id="aid" name="aid[]" value="<!--{$RetList[0][loop]->uid}-->"></td>
+				<td><!--{$RetList[0][loop]->UserName}--></td>
+				<td><!--{$RetList[0][loop]->serverIP}--></td>
+				<td><!--{$RetList[0][loop]->Intranet}--></td>
+				<td><!--{$RetList[0][loop]->PublicIp}--></td>
+				<td><!--{$RetList[0][loop]->LinkType}--></td>
+				<td><span class="green"><!--{formatSize flow=$RetList[0][loop]->Uplink}--></span></td>
+				<td><span class="green"><!--{formatSize flow=$RetList[0][loop]->Downlink}--></span></td>
+				<td><!--{$RetList[0][loop]->onTime}--></td>
+			</tr><!--{/section}-->
+		</table>
+		<!--{$RetList[1]}-->
+    </div>
+	</form>
+    <!--{if $RetList[0]}-->
+	<div class="btn_wrap">
+		<div class="btn_wrap_pd">
+			<a class="btn btn_submit" id="J_order_delLick_all" href="#">清理死链接</a>
+		</div>
+    </div><!--{/if}-->
+    <!--{else}-->
+	<div class="not_content_mini"><i></i>啊哦，没有符合条件的内容！</div><!--{/if}-->
+</div>
+<script src="res/js/dev/pages/admin/common/common.js"></script>
+<script type="text/javascript">
+Wind.use('dialog',function() {
+	$('#J_order_delLick_all').on('click', function(e) {
+		e.preventDefault();
+		if(!$('input.J_check:checked').length) {
+			Wind.dialog.alert('请至少选定一个账号! ');
+			return;
+		}
+		Wind.dialog({
+			message	: '该操作不可以恢复, 确定要清理选定账号死连接吗? ',
+			type	: 'confirm',
+			onOk	: function() {
+				$('form.J_ajaxForm').ajaxSubmit({
+					dataType : 'json',
+					url		 : '?do=online&op=cmddelLick',
+					success	 : function(data, statusText, xhr, $form) {
+						Wind.dialog.alert('成功清理'+data.state+'个死链接账号.', function() {
+							var location = window.location;
+							location.href = location.pathname + location.search;
+						});
+					}
+				});
+			}
+		});
+	});
+});
+</script>
+</body>
+</html>

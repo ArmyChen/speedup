@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>个人资料 - 4KVPN【官方网站】</title>
+<link href="img/main.css" rel="stylesheet" />
+</head>
+<body>
+<?php require 'html/index_header.htm'; ?>
+<div id="content">
+	<div style="float:left;width:200px;">
+	    <div style="float:left;width:200px;">
+			<table width="200" border="0" cellspacing="0" cellpadding="0"    style="display:block">
+				<tr><td><a href="#"></a></td></tr><tr>
+				<td><?php require 'html/index_user_menu.htm'; ?></td></tr>
+			</table>
+		<div class="cle"></div>
+		</div>
+	</div>
+	<div class="user_yc">
+		<div class="u_tit2">个人资料修改</div>
+		<div id="maincontent">
+			<form action="?op=domodi" method="post"  >
+			<div style="padding-left:25px; float:left">
+				<table width="650" border="0" align="center" cellpadding="0" cellspacing="0">
+				    <tr>
+					<td class="fqline">
+						<table width="90%" border="0" align="center" cellpadding="3" cellspacing="0">
+						<tr>
+							<td width="15%" height="50" align="right" class="f16">用户名：</td>
+							<td align="left"><?php echo $checkcontact->user;?>&nbsp;</td>
+							</tr>
+							<tr>
+							<td width="15%" height="50" align="right" class="f16">姓名：</td>
+							<td align="left">
+							<span class="STYLE6">
+							<input name="title" type="text" maxlength="50" id="title" class="inp_bk" value="<?php echo $checkcontact->realname;?>" style="width:200px;" />
+							<span class="STYLE7">*</span>&nbsp;&nbsp;请输入您的姓名，以便联络</span></td>
+							</tr>
+							<tr>
+							<td width="15%" height="50" align="right" class="f16">Q Q：</td>
+							<td align="left">
+							<input name="qq" type="text" class="inp_bk" id="qq" maxlength="20" value="<?php echo $checkcontact->qq;?>" style="width:200px;"/>
+							<span class="STYLE7">*</span>&nbsp;&nbsp;请输入您的Q号，以便联络</span></td>
+							</tr>
+							<tr>
+							<td width="15%" height="50" align="right" class="f16">电话：</td>
+							<td align="left">
+							<span class="STYLE6">
+							<input name="tel" type="text" maxlength="20" id="tel" class="inp_bk" value="<?php echo $checkcontact->phone;?>" style="width:200px;"/>
+							<span class="STYLE7">*</span>&nbsp;&nbsp;请输入您的电话，以便联络</span></td>
+							</tr>
+							<tr>
+							<td width="15%" height="50" align="right" class="f16">联系地址：</td>
+							<td align="left">
+							<input name="address" type="text"  class="inp_bk" id="address" size="60" maxlength="200" value="<?php echo $checkcontact->address;?>">			</td>
+							</tr>
+							<tr>
+							<td width="15%" height="100" align="right">&nbsp;</td>
+							<td align="left">
+							<input type="submit" name="Button2" value=" 修改 " class="qr_btn" id="Button2" />
+							</p>              </td>
+						</tr>
+						</table>
+					</td>
+				    </tr>
+				</table>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="cle"></div>
+<?php require 'html/index_footer.htm'; ?>
+</body>
+</html>

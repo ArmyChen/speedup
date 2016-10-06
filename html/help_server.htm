@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>服务器地址 - 4KVPN【官方网站】</title>
+<link href="img/main.css" rel="stylesheet" />
+</head>
+<body>
+<?php require 'html/index_header.htm'; ?>
+<div id="content">
+	<div style="float:left;width:200px;">
+		<table width="200" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+					<table width="200" border="0" cellspacing="0" cellpadding="0"    style="display:block">
+						<tr><td><a href="#"></a></td></tr><tr>
+						<td><?php require 'html/index_user_menu.htm'; ?></td></tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<div class="cle"></div>
+	</div>
+	<div style="display:block">
+		<div class="user_yc">
+			<h4 class="u_tit2">线路查询 (服务器IP列表)</h4>
+			<p class="tishi" style="width:660px;margin:20px auto 0;">&nbsp;&nbsp;L2TP预共享密钥:123456&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点击查看 <a href="?op=help" class="chengse">vpn设置帮助</a> </p>
+			<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0" style="margin:20px auto;">
+				<tr>
+					<td width="20%" height="40" align="center" valign="middle" bgcolor="#eee" style="background:#eee url(img/x_1.jpg) right center no-repeat;" class="f20">选择地区</td>
+					<td width="35%" height="40" align="center" valign="middle" bgcolor="#eee" style="background:#eee url(img/x_1.jpg) right center no-repeat;" class="f20">vpn服务器地址</td>
+					<td width="25%" height="40" align="center" valign="middle" bgcolor="#eee" style="background:#eee" class="f20">支持协议</td>
+					<td width="20%" align="center" valign="middle" bgcolor="#eee" style="background:#eee" class="f20">线路状态</td>
+				</tr>
+			</table>
+			<?php foreach ( $serverList as $row ) { ?>
+			<table width="95%" height="40" border="0" align="center" cellpadding="0" cellspacing="0" class="sz_nr" style="margin:5px auto;">
+				<tr class="f16">
+					<td width="20%" height="40" align="center" valign="middle"><?php echo $row->serverName;?></td>
+					<td width="35%" height="40" align="center" valign="middle"><?php echo $row->serverIP;?></td>
+					<td width="25%" height="40" align="center" valign="middle">PPTP / L2TP </td>
+					<td width="20%" align="center" valign="middle" class="lvse"><img src="img/<?php if($row->start == 1) { echo 'zc';} else { echo 'yc';} ?>.jpg" width="14" height="16" align="absmiddle" /> 良好</td>
+				</tr>
+			</table>
+			<?php } ?>
+			<div class="cle"></div>
+		</div>
+	</div>
+	<div class="cle"></div>
+</div>
+<?php require 'html/index_footer.htm'; ?>
+</body>
+</html>

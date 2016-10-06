@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title></title>
+<link href="res/css/admin_style.css?v20141223" rel="stylesheet" />
+<script>var GV={JS_ROOT:"res/js/dev/",JS_VERSION:"20141223",TOKEN:"bd588c67ec38e833",REGION_CONFIG:{},SCHOOL_CONFIG:{},URL:{LOGIN:"",IMAGE_RES:"res/images",REGION:"index.php?m=misc&c=webData&a=area",SCHOOL:"index.php?m=misc&c=webData&a=school"}};</script>
+<script src="res/js/dev/wind.js?v20141223"></script>
+<script src="res/js/dev/jquery.js?v20141223"></script>
+</head>
+<body>
+<div class="wrap">
+<div class="nav">
+	<ul class="cc">
+		<li class="current"><a href="?do=rabc">后台账号</a></li>
+	</ul>
+</div>
+<form method="post" class="J_ajaxForm" action="#">
+<div class="h_a">用户信息</div>
+<div class="table_full">
+	<table width="100%">
+		<col class="th" />
+		<col/>
+		<tr>
+			<th>用户名</th>
+			<td><input name="name" type="text" class="input length_5" value="<!--{$checkId->name}-->" <!--{if $checkId->uid}-->disabled<!--{/if}-->></td>
+			<td></td>
+		</tr>
+		<tr>
+			<th>新密码</th>
+			<td><input name="pass" type="text" class="input length_5"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<th>确认密码</th>
+			<td><input name="repass" type="text" class="input length_5"></td>
+			<td><span class="red">密码不修改请留空!</span></td>
+		</tr>
+		<tr>
+			<th>账号状态</th>
+			<td>
+				<ul class="switch_list cc">
+					<li><label><input name="start" value="1" type="radio" <!--{if !$checkId->start or $checkId->start eq 1}-->checked<!--{/if}-->><span>正常</span></label></li>
+					<li><label><input name="start" value="2" type="radio" <!--{if $checkId->start eq 2}-->checked<!--{/if}-->><span>暂停登录</span></label></li>
+				</ul>
+			</td>
+			<td><div class="fun_tips">账号状态,暂停之后将无法进行登录!</div></td>
+		</tr>
+	</table>
+</div>
+<div class="h_a">联系信息</div>
+<div class="table_full">
+	<table width="100%">
+		<col class="th" />
+		<col/>
+		<tr>
+			<th>真实姓名</th>
+			<td><input name="realname" type="text" class="input input_hd length_5" value="<!--{$checkId->realname}-->"></td>
+		</tr>
+		<tr>
+			<th>电子邮箱</th>
+			<td>
+				<input name="email" type="email" class="input length_5" value="<!--{$checkId->email}-->">
+			</td>
+		</tr>
+		<tr>
+			<th>联络电话</th>
+			<td>
+				<input name="aliww" type="text" class="input length_5" value="<!--{$checkId->aliww}-->">
+			</td>
+		</tr>
+		<tr>
+			<th>QQ</th>
+			<td>
+				<input name="qq" type="text" class="input length_5" value="<!--{$checkId->qq}-->">
+			</td>
+		</tr>
+		<tr>
+			<th>备注</th>
+			<td>
+				<textarea class="length_5" name="profile"><!--{$checkId->profile}--></textarea>
+			</td>
+		</tr>
+
+	</table>
+</div>
+<div class="btn_wrap_pd">
+    <input type="hidden" name="op" value="cmdsave"/>
+    <input type="hidden" name="uid" value="<!--{$checkId->uid}-->"/>
+	<button class="btn btn_submit mr10 J_ajax_submit_btn" type="submit">提交</button>
+    <button class="btn length_1" type="button" onclick="javascript:window.location.href='?do=rabc'">返回</button>
+</div>
+</form>
+</div>
+<script src="res/js/dev/pages/admin/common/common.js?v20141223"></script>
+</body>
+</html>
