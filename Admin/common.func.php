@@ -204,3 +204,111 @@ function adminPage ($Table, $Where = null, $Page, $url, $Order = 'uid', $Show = 
 	$array = array($Retlist, $html);
 	return $array;
 }
+
+function getuserOnline24 ($params) {
+	global $dsql;
+	//$checkId = $dsql->get_row("SELECT `onTime`, `offTime`, `Uplink`, `Downlink` FROM web_online WHERE `UserName` = '{$params['user']}'");
+	$sql = "SELECT `Uplink` + `Downlink` FROM web_online WHERE `UserName` = '{$params['user']}' and onTime >=  NOW() - interval 1 day";
+
+	$checkId = $dsql->get_var($sql);
+
+	$checkId = formatGSizeUnits($checkId);
+	return $checkId;
+}
+
+function getuserOnline24updown ($params) {
+	global $dsql;
+	//$checkId = $dsql->get_row("SELECT `onTime`, `offTime`, `Uplink`, `Downlink` FROM web_online WHERE `UserName` = '{$params['user']}'");
+	$sql = "SELECT Uplink FROM web_online WHERE `UserName` = '{$params['user']}' and onTime >=  NOW() - interval 1 day";
+
+	$uplink = $dsql->get_var($sql);
+	$sql2 = "SELECT Downlink FROM web_online WHERE `UserName` = '{$params['user']}' and onTime >=  NOW() - interval 1 day";
+
+	$downlink = $dsql->get_var($sql2);
+
+	$uplink = formatGSizeUnits($uplink);
+	$downlink = formatGSizeUnits($downlink);
+	
+	return $uplink."/".$downlink;
+}
+
+function getuserOnline30 ($params) {
+	global $dsql;
+	//$checkId = $dsql->get_row("SELECT `onTime`, `offTime`, `Uplink`, `Downlink` FROM web_online WHERE `UserName` = '{$params['user']}'");
+	$sql = "SELECT `Uplink` + `Downlink` FROM web_online WHERE `UserName` = '{$params['user']}' and onTime between CURDATE()-interval 30 day";
+
+	$checkId = $dsql->get_var($sql);
+
+	$checkId = formatGSizeUnits($checkId);
+	return $checkId;
+}
+
+function getuserOnline30updown ($params) {
+	global $dsql;
+	//$checkId = $dsql->get_row("SELECT `onTime`, `offTime`, `Uplink`, `Downlink` FROM web_online WHERE `UserName` = '{$params['user']}'");
+	$sql = "SELECT Uplink FROM web_online WHERE `UserName` = '{$params['user']}' and onTime between CURDATE()-interval 30 day";
+
+	$uplink = $dsql->get_var($sql);
+	$sql2 = "SELECT Downlink FROM web_online WHERE `UserName` = '{$params['user']}' and onTime between CURDATE()-interval 30 day";
+
+	$downlink = $dsql->get_var($sql2);
+
+	$uplink = formatGSizeUnits($uplink);
+	$downlink = formatGSizeUnits($downlink);
+	
+	return $uplink."/".$downlink;
+}
+
+function getserverOnline24 ($params) {
+	global $dsql;
+	//$checkId = $dsql->get_row("SELECT `onTime`, `offTime`, `Uplink`, `Downlink` FROM web_online WHERE `UserName` = '{$params['user']}'");
+	$sql = "SELECT `Uplink` + `Downlink` FROM web_online WHERE `serverIP` = '{$params['serverIP']}' and onTime >=  NOW() - interval 1 day";
+
+	$checkId = $dsql->get_var($sql);
+
+	$checkId = formatGSizeUnits($checkId);
+	return $checkId;
+}
+
+function getserverOnline24updown ($params) {
+	global $dsql;
+	//$checkId = $dsql->get_row("SELECT `onTime`, `offTime`, `Uplink`, `Downlink` FROM web_online WHERE `UserName` = '{$params['user']}'");
+	$sql = "SELECT Uplink FROM web_online WHERE `serverIP` = '{$params['serverIP']}' and onTime >=  NOW() - interval 1 day";
+
+	$uplink = $dsql->get_var($sql);
+	$sql2 = "SELECT Downlink FROM web_online WHERE `serverIP` = '{$params['serverIP']}' and onTime >=  NOW() - interval 1 day";
+
+	$downlink = $dsql->get_var($sql2);
+
+	$uplink = formatGSizeUnits($uplink);
+	$downlink = formatGSizeUnits($downlink);
+	
+	return $uplink."/".$downlink;
+}
+
+function getserverOnline30 ($params) {
+	global $dsql;
+	//$checkId = $dsql->get_row("SELECT `onTime`, `offTime`, `Uplink`, `Downlink` FROM web_online WHERE `UserName` = '{$params['user']}'");
+	$sql = "SELECT `Uplink` + `Downlink` FROM web_online WHERE `serverIP` = '{$params['serverIP']}' and onTime between CURDATE()-interval 30 day";
+
+	$checkId = $dsql->get_var($sql);
+
+	$checkId = formatGSizeUnits($checkId);
+	return $checkId;
+}
+
+function getserverOnline30updown ($params) {
+	global $dsql;
+	//$checkId = $dsql->get_row("SELECT `onTime`, `offTime`, `Uplink`, `Downlink` FROM web_online WHERE `UserName` = '{$params['user']}'");
+	$sql = "SELECT Uplink FROM web_online WHERE `serverIP` = '{$params['serverIP']}' and onTime between CURDATE()-interval 30 day";
+
+	$uplink = $dsql->get_var($sql);
+	$sql2 = "SELECT Downlink FROM web_online WHERE `serverIP` = '{$params['serverIP']}' and onTime between CURDATE()-interval 30 day";
+
+	$downlink = $dsql->get_var($sql2);
+
+	$uplink = formatGSizeUnits($uplink);
+	$downlink = formatGSizeUnits($downlink);
+	
+	return $uplink."/".$downlink;
+}

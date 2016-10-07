@@ -91,6 +91,16 @@ var USUALL = [],
 						"top": "",
 						"url": "?do=user"
 					},
+					"account_detail": {
+						"id": "account_detail",
+						"name": "用户流量管理",
+						"icon": "",
+						"tip": "",
+						"parent": "User",
+						"top": "",
+						"url": "?do=account"
+					},
+					
 					"test": {
 						"id": "test",
 						"name": "测试账号",
@@ -183,6 +193,15 @@ var USUALL = [],
 						"parent": "Server",
 						"top": "",
 						"url": "?do=server"
+					},
+					"serverFlowList": {
+						"id": "serverFlowList",
+						"name": "服务器流量管理",
+						"icon": "",
+						"tip": "",
+						"parent": "Server",
+						"top": "",
+						"url": "?do=serverFlow"
 					},
 					"Online": {
 						"id": "Online",

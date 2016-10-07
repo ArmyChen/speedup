@@ -102,6 +102,12 @@ function formatSizeUnits($bytes)
 	return $bytes;
 }
 
+function formatGSizeUnits($bytes)
+{
+	$bytes = number_format($bytes / 1073741824, 2) . ' GB';
+	return $bytes;
+}
+
 // 获取用户真实地址
 function getAddress() {
 	$ip = false;

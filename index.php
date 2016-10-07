@@ -96,6 +96,12 @@ function formatSizeUnits($bytes)
 	return $bytes;
 }
 
+function formatGSizeUnits($bytes)
+{
+	$bytes = number_format($bytes / 1073741824, 2) . ' GB';
+	return $bytes;
+}
+
 $_formarray = Array('_GET', '_POST');
 foreach($_formarray as $_request) {
 	foreach($$_request as $_key => $_value) {
@@ -285,6 +291,32 @@ else if($op == 'charge') {
 		$sqlstr = "SELECT `user`, `number`, `price`, `start` FROM web_order WHERE `user` = '{$_SESSION['authuser_name']}' ORDER BY uid DESC";
 		$chargeList = $db->get_results($sqlstr);
 		require 'html/index_charge.htm';
+	}
+}
+
+else if($op == 'flow') {
+	if(empty($_SESSION['authuser_uid'])) {
+		$ClickName = '流量记录';
+		$return_url = '?op=flow';
+		require 'html/index_box.htm';
+	} else {
+		dbconnect();
+		$sqlstr = "SELECT `onTime`, `offTime` - `onTime` as hour, `Uplink`, `Downlink` FROM web_online WHERE `UserName` = '{$_SESSION['authuser_name']}' group by DATE_FORMAT(onTime,'%m') ORDER BY uid DESC";
+	
+		$flowList = $db->get_results($sqlstr);
+
+		$result = array();
+		foreach($flowList as $key=>$item){
+			$result[$key]['time'] =  $item->onTime;
+			
+			
+			$result[$key]['hour'] = ceil((hour)/86400) ."小时";
+			$result[$key]['up'] = formatSizeUnits($item->Uplink);
+			$result[$key]['down'] = formatSizeUnits($item->Downlink);
+		}
+	
+		
+		require 'html/index_flow.htm';
 	}
 }
 

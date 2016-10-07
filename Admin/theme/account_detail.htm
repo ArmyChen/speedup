@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title></title>
+<link href="res/css/admin_style.css?v20141223" rel="stylesheet" />
+<script>var GV={JS_ROOT:"res/js/dev/",JS_VERSION:"20141223",TOKEN:"bd588c67ec38e833",REGION_CONFIG:{},SCHOOL_CONFIG:{},URL:{LOGIN:"",IMAGE_RES:"res/images",REGION:"index.php?m=misc&c=webData&a=area",SCHOOL:"index.php?m=misc&c=webData&a=school"}};</script>
+<script src="res/js/dev/wind.js?v20141223"></script>
+<script src="res/js/dev/jquery.js?v20141223"></script>
+</head>
+<body>
+<div class="wrap J_check_wrap">
+	<div class="nav">
+		<ul class="cc">
+			<li class="current"><a href="?do=user">充值详情</a></li>
+		</ul>
+	</div>
+	<div class="h_a">功能说明</div>
+	<div class="prompt_text">
+		<ol>
+			<li>查看用户的账户详情。</li>
+		</ol>
+	</div>
+	<form class="J_ajaxForm" action="#" method="post" ><!--{if $RetList[0]}-->
+	<div class="table_list">
+		<table width="100%">
+			<thead>
+				<tr>
+					<td>用户名</td>
+					<td>充值日期时间</td>
+					<td>充值天数或流量</td>
+					<td>充值金额</td>
+				</tr>
+			</thead>
+			<!--{section name=loop loop=$RetList[0]}-->
+			<tr>
+			    <td><!--{$RetList[0][loop]->user}--></td>
+				<td><!--{$RetList[0][loop]->addTime}--></td>
+				<!--大于10年显示流量计算，小于显示时间-->
+				<td><!--{if $RetList[0][loop]->hour lt 86400}--><!--{$RetList[0][loop]->hour / 24}-->天<!--{else}--><!--{formatSizeUnits($RetList[0][loop]->hour)}--><!--{/if}--></td>
+				<td><!--{$RetList[0][loop]->price}--></td>
+			</tr><!--{/section}-->
+		</table>
+		<!--{$RetList[1]}-->
+    </div>
+    <!--{else}-->
+		<div class="not_content_mini"><i></i>啊哦，没有符合条件的内容！</div><!--{/if}-->
+	</form>
+</div>
+<div class="btn_wrap">
+	<div class="btn_wrap_pd">
+		<button class="btn length_1" type="button" onclick="javascript:history.back()">返回</button>
+	</div>
+</div>
+
+
+</body>
+</html>

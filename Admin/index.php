@@ -21,7 +21,7 @@ require 'common.func.php';
 
 $behavior = array('default', 'home', 'logout', 'cache', 'site', 'regist', 'openuser', 'email', 'rabc',
 	'log', 'group', 'user', 'test', 'cardType', 'crad', 'cardView', 'serverGroup', 'server',
-	'online', 'sales', 'backup', 'internet', 'order', 'Info', 'Pass');
+	'online', 'sales', 'backup', 'internet', 'order', 'Info', 'Pass','account','account_detail','accd','serverFlow','serverd');
 
 if(in_array($do, $behavior)) {
 	require $do.".php";

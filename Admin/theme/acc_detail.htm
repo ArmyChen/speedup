@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title></title>
+<link href="res/css/admin_style.css?v20141223" rel="stylesheet" />
+<script>var GV={JS_ROOT:"res/js/dev/",JS_VERSION:"20141223",TOKEN:"bd588c67ec38e833",REGION_CONFIG:{},SCHOOL_CONFIG:{},URL:{LOGIN:"",IMAGE_RES:"res/images",REGION:"index.php?m=misc&c=webData&a=area",SCHOOL:"index.php?m=misc&c=webData&a=school"}};</script>
+<script src="res/js/dev/wind.js?v20141223"></script>
+<script src="res/js/dev/jquery.js?v20141223"></script>
+</head>
+<body>
+<div class="wrap J_check_wrap">
+	<div class="nav">
+		<ul class="cc">
+			<li class="current"><a href="?do=user">充值详情</a></li>
+		</ul>
+	</div>
+	<div class="h_a">功能说明</div>
+	<div class="prompt_text">
+		<ol>
+			<li>查看用户的账户详情。</li>
+		</ol>
+	</div>
+	<form class="J_ajaxForm" action="#" method="post" ><!--{if $RetList[0]}-->
+	<div class="table_list">
+		<table width="100%">
+			<thead>
+				<tr>
+					<td>用户名</td>
+					<td>每次连接时间</td>
+					<td>上传/下载</td>
+					<td>接入ip</td>
+					<td>服务器ip</td>
+				</tr>
+			</thead>
+			<!--{section name=loop loop=$RetList[0]}-->
+			<tr>
+			    <td><!--{$RetList[0][loop]->UserName}--></td>
+				<td><!--{$RetList[0][loop]->onTime}--></td>
+				<td><!--{formatSizeUnits($RetList[0][loop]->Uplink)}--> / <!--{formatSizeUnits($RetList[0][loop]->Downlink)}--></td>
+				<td><!--{$RetList[0][loop]->Intranet}--></td>
+				<td><!--{$RetList[0][loop]->serverIP}--></td>
+			</tr><!--{/section}-->
+		</table>
+		<!--{$RetList[1]}-->
+    </div>
+    <!--{else}-->
+		<div class="not_content_mini"><i></i>啊哦，没有符合条件的内容！</div><!--{/if}-->
+	</form>
+</div>
+<div class="btn_wrap">
+	<div class="btn_wrap_pd">
+		<button class="btn length_1" type="button" onclick="javascript:history.back()">返回</button>
+	</div>
+</div>
+
+</body>
+</html>
