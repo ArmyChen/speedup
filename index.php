@@ -301,21 +301,36 @@ else if($op == 'flow') {
 		require 'html/index_box.htm';
 	} else {
 		dbconnect();
-		$sqlstr = "SELECT `onTime`, `offTime` - `onTime` as hour, `Uplink`, `Downlink` FROM web_online WHERE `UserName` = '{$_SESSION['authuser_name']}' group by DATE_FORMAT(onTime,'%m') ORDER BY uid DESC";
-	
+		$sqlstr = "SELECT  onTime, SUM(offTime) as offTime, SUM(Uplink) as Uplink, SUM(Downlink) as Downlink FROM web_online WHERE `UserName` = '{$_SESSION['authuser_name']}' and onTime >= NOW() - interval 365 day group by DATE_FORMAT(onTime,'%m') ORDER BY uid DESC";
+	//echo $sqlstr;
 		$flowList = $db->get_results($sqlstr);
 
 		$result = array();
 		foreach($flowList as $key=>$item){
-			$result[$key]['time'] =  $item->onTime;
+			$date = new DateTime($item->onTime);
+			$result[$key + 1]['time'] = $date->format('Y-m');
 			
+			$result[$key + 1]['hour'] = ceil(($item->offTime)/86400) ."小时";
+			$result[$key + 1]['up'] = formatSizeUnits($item->Uplink);
+			$result[$key + 1]['down'] = formatSizeUnits($item->Downlink);
+			$result[$key + 1]['total'] = formatSizeUnits($item->Downlink + $item->Uplink);
 			
-			$result[$key]['hour'] = ceil((hour)/86400) ."小时";
-			$result[$key]['up'] = formatSizeUnits($item->Uplink);
-			$result[$key]['down'] = formatSizeUnits($item->Downlink);
 		}
-	
 		
+
+		$sqlstr2 = "SELECT onTime, SUM(offTime) as offTime, SUM(Uplink) as Uplink, SUM(Downlink) as Downlink FROM web_online WHERE `UserName` = '{$_SESSION['authuser_name']}' and onTime >=  NOW() - interval 1 day ";
+	//	ECHO $sqlstr2;DIE;
+		$flowList2 = $db->get_results($sqlstr2);
+		foreach($flowList2 as $key=>$item){
+			$result[0]['time'] ="24小时";
+			
+			$result[0]['hour'] = ceil(($item->offTime)/86400) ."小时";
+			$result[0]['up'] = formatSizeUnits($item->Uplink);
+			$result[0]['down'] = formatSizeUnits($item->Downlink);
+			$result[0]['total'] = formatSizeUnits($item->Downlink + $item->Uplink);
+		}
+
+		ksort($result);
 		require 'html/index_flow.htm';
 	}
 }

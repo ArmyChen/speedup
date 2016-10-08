@@ -10,7 +10,7 @@
 
 if($op == 'default')
 {
-	$Where = " WHERE serverIP='".$_REQUEST['serverIP']."' and onTime between CURDATE()-interval 30 day";
+	$Where = " WHERE serverIP='".$_REQUEST['serverIP']."'";
 	$pageURL = '?do='.$do.'&serverIP='.$_REQUEST['serverIP'].'&pn';
 
 	$RetList = adminPage('web_online', $Where, $pn, $pageURL, 'uid', 10);

@@ -6,4 +6,4 @@
  * @package Example-application
  */
 
-$dns = array( "Host"=>"127.0.0.1", "Name"=>"radius", "UserName"=>"root", "PassWord"=>"root");
+$dns = array( "Host"=>"47.90.63.191", "Name"=>"radius", "UserName"=>"radius", "PassWord"=>"123456");

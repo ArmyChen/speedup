@@ -32,6 +32,7 @@
 					<td width="20%" height="40" align="center" valign="middle" bgcolor="#eee" style="background:#eee" class="f20">在线时长</td>
 					<td width="10%" height="40" align="center" valign="middle" bgcolor="#eee" style="background:#eee" class="f20">下载</td>
 					<td width="10%" height="40" align="center" valign="middle" bgcolor="#eee" style="background:#eee" class="f20">上传</td>
+					<td width="10%" height="40" align="center" valign="middle" bgcolor="#eee" style="background:#eee" class="f20">总计</td>
 				</tr>
 			</table>
 			<?php foreach ( $result as $row ) { ?>
@@ -39,8 +40,9 @@
 				<tr class="f16">
 					<td width="10%" height="40" align="center" valign="middle"><?php echo $row['time'];?></td>
 					<td width="20%" height="40" align="center" valign="middle"><?php echo $row['hour'];?></td>
-					<td width="10%" height="40" align="center" valign="middle"><?php echo $row['up'];?></td>
 					<td width="10%" height="40" align="center" valign="middle"><?php echo $row['down'];?></td>
+					<td width="10%" height="40" align="center" valign="middle"><?php echo $row['up'];?></td>
+					<td width="10%" height="40" align="center" valign="middle"><?php echo $row['total'];?></td>
 					
 				</tr>
 			</table>

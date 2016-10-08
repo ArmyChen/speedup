@@ -165,9 +165,9 @@
 					<td>位置</td>
 					<td>最大</td>
 					<td>在线</td>
-					<td  onclick = " sortTable('tblSort',0);"   style = "cursor: pointer">24小时流量</td>
+					<td  onclick = " sortTable('tblSort',8);"   style = "cursor: pointer">24小时流量</td>
 					<td>上传/下载</td>
-					<td  onclick = " sortTable('tblSort',0);"   style = "cursor: pointer">最近30天流量</td>
+					<td  onclick = " sortTable('tblSort',10);"   style = "cursor: pointer">最近30天流量</td>
 					<td>上传/下载</td>
 					<td>状态</td>
 					<td>Dns</td>
@@ -200,7 +200,7 @@
 					<span class="mr5"></span>
 					<a href="?do=serverFlow&op=cmdDel" class="btn J_ajax_del" data-pdata="{'uid': '<!--{$RetList[0][loop]->uid}-->'}">[删除]</a>
 				</td>
-				<td><a href="/admin/index.php?do=serverd&serverIP=<!--{$RetList[0][loop]->serverIP}-->">详细查询</a></td>
+				<td><a href="?do=serverd&serverIP=<!--{$RetList[0][loop]->serverIP}-->">详细查询</a></td>
 			</tr><!--{/section}-->
 		</table>
 		<!--{$RetList[1]}-->

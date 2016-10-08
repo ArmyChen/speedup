@@ -10,7 +10,8 @@
 
 if($op == 'default')
 {
-	$Where = " WHERE UserName='".$_REQUEST['username']."' and onTime between CURDATE()-interval 30 day";
+	//$Where = " WHERE UserName='".$_REQUEST['username']."' and onTime >=  NOW()-interval 30 day";
+	$Where = " WHERE UserName='".$_REQUEST['username']."'";
 	$pageURL = '?do='.$do.'&username='.$_REQUEST['username'].'&pn';
 
 	$RetList = adminPage('web_online', $Where, $pn, $pageURL, 'uid', 10);

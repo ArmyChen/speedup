@@ -99,16 +99,16 @@
 	</div>
 	</form>
 	<form class="J_ajaxForm" action="#" method="post" ><!--{if $RetList[0]}-->
-	<div class="table_list" id = "tblSort" >
-		<table width="100%">
+	<div class="table_list">
+		<table width="100%" id = "tblSort" >
 			<thead>
 				<tr>
 					<td><label><input type="checkbox" name="checkAll" class="J_check_all" data-direction="y" data-checklist="J_check_y">全选</label></td>
 					<td>账号</td>
 					<td>密码</td>
-					<td  onclick = " sortTable('tblSort',0);"   style = "cursor: pointer">24小时流量</td>
+					<td  onclick = " sortTable('tblSort',3);"   style = "cursor: pointer">24小时流量</td>
 					<td>上传/下载</td>
-					<td  onclick = " sortTable('tblSort',0);"   style = "cursor: pointer">最近30天流量</td>
+					<td  onclick = " sortTable('tblSort',5);"   style = "cursor: pointer">最近30天流量</td>
 					<td>上传/下载</td>
 					<td>用户组</td>
 					<td>开户时间</td>
@@ -136,14 +136,14 @@
 				<td><!--{userGroup group=$RetList[0][loop]->group}--></td>
 				<td><!--{$RetList[0][loop]->regTime}--></td>
 				<td><!--{$RetList[0][loop]->profile}--></td>
-				<td><a href="/admin/index.php?do=account_detail&user=<!--{$RetList[0][loop]->user}-->">充值详情</a></td>
+				<td><a href="?do=account_detail&user=<!--{$RetList[0][loop]->user}-->">充值详情</a></td>
 				<td><!--{$RetList[0][loop]->number}--></td>
 				<td><!--{$RetList[0][loop]->online}--></td>
 				<td><!--{userType group=$RetList[0][loop]->group}--></td>
 				<td><!--{userAcct uid=$RetList[0][loop]->uid}--></td>
 				
 				<td><!--{if $RetList[0][loop]->lockuser eq 1}-->正常<!--{else}--><span class="red">暂停</span><!--{/if}--></td>
-				<td><a href="/admin/index.php?do=serverd&username=<!--{$RetList[0][loop]->user}-->">详细查询</a></td>
+				<td><a href="?do=accd&username=<!--{$RetList[0][loop]->user}-->">详细查询</a></td>
 				<td>
 					<a class="btn btn_submit" href="?do=account&op=cmdEdit&uid=<!--{$RetList[0][loop]->uid}-->" title="编辑">[编辑]</a>
 					<span class="mr5"></span>
