@@ -235,7 +235,7 @@ function getuserOnline24updown ($params) {
 function getuserOnline30 ($params) {
 	global $dsql;
 	//$checkId = $dsql->get_row("SELECT `onTime`, `offTime`, `Uplink`, `Downlink` FROM web_online WHERE `UserName` = '{$params['user']}'");
-	$sql = "SELECT `Uplink` + `Downlink` FROM web_online WHERE `UserName` = '{$params['user']}' and onTime between CURDATE()-interval 30 day";
+	$sql = "SELECT `Uplink` + `Downlink` FROM web_online WHERE `UserName` = '{$params['user']}' and  onTime >=  NOW()-interval 30 day";
 
 	$checkId = $dsql->get_var($sql);
 
@@ -246,10 +246,10 @@ function getuserOnline30 ($params) {
 function getuserOnline30updown ($params) {
 	global $dsql;
 	//$checkId = $dsql->get_row("SELECT `onTime`, `offTime`, `Uplink`, `Downlink` FROM web_online WHERE `UserName` = '{$params['user']}'");
-	$sql = "SELECT Uplink FROM web_online WHERE `UserName` = '{$params['user']}' and onTime between CURDATE()-interval 30 day";
+	$sql = "SELECT Uplink FROM web_online WHERE `UserName` = '{$params['user']}' and  onTime >=  NOW()-interval 30 day";
 
 	$uplink = $dsql->get_var($sql);
-	$sql2 = "SELECT Downlink FROM web_online WHERE `UserName` = '{$params['user']}' and onTime between CURDATE()-interval 30 day";
+	$sql2 = "SELECT Downlink FROM web_online WHERE `UserName` = '{$params['user']}' and  onTime >=  NOW()-interval 30 day";
 
 	$downlink = $dsql->get_var($sql2);
 
@@ -289,7 +289,7 @@ function getserverOnline24updown ($params) {
 function getserverOnline30 ($params) {
 	global $dsql;
 	//$checkId = $dsql->get_row("SELECT `onTime`, `offTime`, `Uplink`, `Downlink` FROM web_online WHERE `UserName` = '{$params['user']}'");
-	$sql = "SELECT `Uplink` + `Downlink` FROM web_online WHERE `serverIP` = '{$params['serverIP']}' and onTime between CURDATE()-interval 30 day";
+	$sql = "SELECT `Uplink` + `Downlink` FROM web_online WHERE `serverIP` = '{$params['serverIP']}' and  onTime >=  NOW() -interval 30 day";
 
 	$checkId = $dsql->get_var($sql);
 
@@ -300,10 +300,10 @@ function getserverOnline30 ($params) {
 function getserverOnline30updown ($params) {
 	global $dsql;
 	//$checkId = $dsql->get_row("SELECT `onTime`, `offTime`, `Uplink`, `Downlink` FROM web_online WHERE `UserName` = '{$params['user']}'");
-	$sql = "SELECT Uplink FROM web_online WHERE `serverIP` = '{$params['serverIP']}' and onTime between CURDATE()-interval 30 day";
+	$sql = "SELECT Uplink FROM web_online WHERE `serverIP` = '{$params['serverIP']}' and  onTime >=  NOW()-interval 30 day";
 
 	$uplink = $dsql->get_var($sql);
-	$sql2 = "SELECT Downlink FROM web_online WHERE `serverIP` = '{$params['serverIP']}' and onTime between CURDATE()-interval 30 day";
+	$sql2 = "SELECT Downlink FROM web_online WHERE `serverIP` = '{$params['serverIP']}' and  onTime >=  NOW()-interval 30 day";
 
 	$downlink = $dsql->get_var($sql2);
 
