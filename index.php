@@ -295,21 +295,23 @@ else if($op == 'charge') {
 }
 
 else if($op == 'flow') {
+	
 	if(empty($_SESSION['authuser_uid'])) {
 		$ClickName = '流量记录';
 		$return_url = '?op=flow';
 		require 'html/index_box.htm';
 	} else {
 		dbconnect();
+		
 		$sqlstr = "SELECT  onTime, SUM(offTime) as offTime, SUM(Uplink) as Uplink, SUM(Downlink) as Downlink FROM web_online WHERE `UserName` = '{$_SESSION['authuser_name']}' and onTime >= NOW() - interval 365 day group by DATE_FORMAT(onTime,'%m') ORDER BY uid DESC";
 	//echo $sqlstr;
 		$flowList = $db->get_results($sqlstr);
 
 		$result = array();
 		foreach($flowList as $key=>$item){
-			$date = new DateTime($item->onTime);
-			$result[$key + 1]['time'] = $date->format('Y-m');
 			
+			//$date = new DateTime();
+			$result[$key + 1]['time'] = date("Y-m",strtotime($item->onTime));;
 			$result[$key + 1]['hour'] = ceil(($item->offTime)/86400) ."小时";
 			$result[$key + 1]['up'] = formatSizeUnits($item->Uplink);
 			$result[$key + 1]['down'] = formatSizeUnits($item->Downlink);
@@ -331,6 +333,7 @@ else if($op == 'flow') {
 		}
 
 		ksort($result);
+		
 		require 'html/index_flow.htm';
 	}
 }
