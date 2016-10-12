@@ -59,13 +59,16 @@ if($op == 'default')
 			$tpl->assign('isdns', $isdns);
 			unset($isline);
 		}
+		
+		
 	}
+
 	$tpl->registerPlugin("function","gidName", "getGroupName");
 	$tpl->registerPlugin("function","serverOnline24", "getserverOnline24");
 	$tpl->registerPlugin("function","serverOnline24updown", "getserverOnline24updown");
 	$tpl->registerPlugin("function","serverOnline30", "getserverOnline30");
 	$tpl->registerPlugin("function","serverOnline30updown", "getserverOnline30updown");
-	$RetList = adminPage('web_server', $Where, $pn, $pageURL, 'Pos DESC, uid ', 50);
+	$RetList = adminPage('web_server', $Where, $pn, $pageURL, "'Pos DESC, uid '", 50);
 	$tpl->assign('RetList', $RetList);
 	$tpl->display('serverFlow.htm');
 }
